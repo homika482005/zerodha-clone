@@ -10,13 +10,18 @@ const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 
-const PORT = process.env.PORT || 3002; 
+const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Root route - added to fix "Cannot GET /"
+app.get("/", (req, res) => {
+  res.send("Zerodha Clone Backend is running!");
+});
 
 // app.get("/addHoldings", async (req, res) => {
 //   let tempHoldings = [
@@ -187,7 +192,7 @@ app.use(bodyParser.json());
 //   res.send("Done!");
 // });
 
-app.get("/allHoldings", async (req, res) => { 
+app.get("/allHoldings", async (req, res) => {
   let allHoldings = await HoldingsModel.find({});
   res.json(allHoldings);
 });
@@ -209,11 +214,9 @@ app.post("/newOrder", async (req, res) => {
 
   res.send("Order saved!");
 });
- 
+
 app.listen(PORT, () => {
   console.log("App started!");
   mongoose.connect(uri);
   console.log("DB started!");
 });
-
-
