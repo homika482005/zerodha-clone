@@ -2,6 +2,13 @@ import React from "react";
 import "./Signup.css";
 
 function Signup() {
+  const handleSignup = (event) => {
+    event.preventDefault();
+
+    // Demo signup: open the deployed dashboard
+    window.location.href = "https://zerodhaclone-project.netlify.app";
+  };
+
   return (
     <div className="signup-container">
 
@@ -9,7 +16,7 @@ function Signup() {
 
       <p>Start investing with Zerodha</p>
 
-      <form>
+      <form onSubmit={handleSignup}>
 
         <label>Mobile Number</label>
         <input
